@@ -10,7 +10,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.ScrollPaneConstants;
 
 import blast.BlastController;
 
@@ -35,16 +37,16 @@ public class BlastNoGUIMain {
 		panelUp.setLayout(new FlowLayout());
 		panelUp.setBackground(Color.PINK); //le pongo color rosa
 		frame.getContentPane().add(panelUp,"North"); //lo quiero en la parte de arriba
-		frame.setSize(700,400); //establezco el tamaño de mi aplicacion
+		frame.setSize(800,700); //establezco el tamaño de mi aplicacion
 		frame.setVisible(true); //pongo que sea visible
-		
+
 		JRadioButton buttonProtein= new JRadioButton("Proteinas"); //creo un radiobutton "proteinas"
 		JRadioButton buttonSequence= new JRadioButton("Secuencia de nucleótidos"); //creo otro radiobutton "nucleotidos"
 		JLabel label = new JLabel("Selecciona: "); //creo un label
 		panelUp.add(label); //añado el label al panel1
 		panelUp.add(buttonProtein);//añado el boton proteina al panel1
 		panelUp.add(buttonSequence);//añado el boton nucleotido al panel1
-		
+
 		buttonProtein.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(buttonProtein.isSelected()) {
@@ -52,7 +54,7 @@ public class BlastNoGUIMain {
 				}
 			}
 		});
-		
+
 		buttonSequence.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(buttonSequence.isSelected()) {
@@ -60,7 +62,7 @@ public class BlastNoGUIMain {
 				}
 			}
 		});
-		
+
 		JPanel panelDown= new JPanel();//creo el segundo Panel
 		panelDown.setLayout(new FlowLayout());
 		panelDown.setBackground(Color.YELLOW); //le pongo color amarillo
@@ -79,21 +81,23 @@ public class BlastNoGUIMain {
 			}
 		});
 
-
-		
 		JLabel label3= new JLabel("Escribe un porcentaje entre 0 y 1"); //creo el label
 		panelDown.add(label3); //lo añado al panel2
-		
-		JTextArea porcentaje= new JTextArea(" ",1,3); //creo un area de texto para poder escribir
+
+		JTextArea porcentaje= new JTextArea("",1,3); //creo un area de texto para poder escribir
 		porcentaje.setEditable(true); //lo hago editable para poder escribir y borrar
 		panelDown.add(porcentaje);//lo añado al panel2
-		
-		JButton bfinal= new JButton("Pulsa aquí para ver el resulado");//creo un boton para ver el resultado
-		JTextArea resultado= new JTextArea(10,20); //creo un area de texto en el que salga el resultado, de un tamaño concreto
-		panelDown.add(bfinal); //añado el boton para ver el resultado al panel2
-		panelDown.add(resultado);//añado el area de texto para ver el resultado al panel2
 
-		bfinal.addActionListener(new ActionListener() {
+		JButton buttonResultado= new JButton("Pulsa aquí para ver el resulado");//creo un boton para ver el resultado
+		JTextArea resultado= new JTextArea(30,30); //creo un area de texto en el que salga el resultado, de un tamaño concreto
+		JScrollPane sc= new JScrollPane(resultado);//para poder seguir leyendo hacia arriba y abajo, me creo una barra para
+		//poder subir y bajar, e ir de izquierda a derecha
+		sc.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		panelDown.add(sc);
+		panelDown.add(buttonResultado); //añado el boton para ver el resultado al panel2
+		
+
+		buttonResultado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String tipo= "Proteinas";
 				if(buttonSequence.isSelected()) {
@@ -115,8 +119,8 @@ public class BlastNoGUIMain {
 				}
 
 			}
+		});
 
-		});		
 
 	}
 }
